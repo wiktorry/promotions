@@ -10,27 +10,14 @@ import java.util.List;
 public class DataLoader {
     private final ObjectMapper mapper = new ObjectMapper();
 
-    public List<Order> loadOrders(String path) {
-        List<Order> orders = null;
+    public <T> List<T> loadJson(String path, TypeReference<List<T>> typeReference) {
+        List<T> objects = null;
         try {
             File file = new File(path);
-            orders = mapper.readValue(file, new TypeReference<>() {
-            });
+            objects = mapper.readValue(file, typeReference);
         } catch (IOException e) {
-            System.out.println("Error while reading orders file" + e.getMessage());
+            System.out.println("Error while reading file" + e.getMessage());
         }
-        return orders;
-    }
-
-    public List<PaymentMethod> loadPaymentMethods(String path) {
-        List<PaymentMethod> paymentMethods = null;
-        try {
-            File file = new File(path);
-            paymentMethods = mapper.readValue(file, new TypeReference<>() {
-            });
-        } catch (IOException e) {
-            System.out.println("Error while reading paymentMethods file" + e.getMessage());
-        }
-        return paymentMethods;
+        return objects;
     }
 }

@@ -7,7 +7,7 @@ public class PromotionService {
     private List<PaymentMethod> paymentMethods;
     private double pointsAmount = 0;
 
-    PromotionService(List<Order> orders, List<PaymentMethod> paymentMethods) {
+    public PromotionService(List<Order> orders, List<PaymentMethod> paymentMethods) {
         this.orders = orders;
         this.paymentMethods = paymentMethods;
         this.paymentMethods.sort(Comparator.comparing(PaymentMethod::getDiscount).reversed());
