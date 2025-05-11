@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class PromotionServiceTest {
     @Test
-    public void shouldReturnOptimalResult() {
+    public void shouldReturnOptimalResultForExampleData() {
         List<Order> orders = new ArrayList<>(List.of(
                 new Order("ORDER1", 100, new ArrayList<>(List.of("mZysk"))),
                 new Order("ORDER2", 200, new ArrayList<>(List.of("BosBankrut"))),
@@ -33,7 +33,7 @@ public class PromotionServiceTest {
     }
 
     @Test
-    public void shouldReturnOptimalResult2() {
+    public void shouldReturnOptimalResult() {
         //Situation when is more optimal to have 2x -10% than one "PUNKTY" promotion
         List<Order> orders = new ArrayList<>(List.of(
                 new Order("ORDER1", 50, null),
@@ -50,4 +50,14 @@ public class PromotionServiceTest {
                 "PUNKTY", 50.0
         )), result);
     }
+
+    @Test
+    public void shouldReturnEmptyResultForEmptyData() {
+        List<Order> orders = new ArrayList<>();
+        List<PaymentMethod> paymentMethods = new ArrayList<>();
+        PromotionService promotionService = new PromotionService(orders, paymentMethods);
+        Map<String, Double> result = promotionService.process();
+        Assert.assertEquals(new HashMap<>(), result);
+    }
+    
 }

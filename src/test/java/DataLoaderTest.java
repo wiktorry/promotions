@@ -3,7 +3,6 @@ import org.example.DataLoader;
 import org.example.Order;
 import org.example.PaymentMethod;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -28,13 +27,11 @@ public class DataLoaderTest {
     }
 
     @Test
-    @Ignore
-    public void shouldThrowExceptionWithWrongPath() {
+    public void shouldReturnNullWithWrongPath() {
         DataLoader loader = new DataLoader();
-        Assert.assertThrows(Exception.class, () -> {
-            List<Order> orders = loader.loadJson("src/main/resources/order.json",
-                    new TypeReference<List<Order>>() {
-                    });
-        });
+        List<PaymentMethod> paymentMethods = loader.loadJson("src/main/resources/file.json",
+                new TypeReference<List<PaymentMethod>>() {
+                });
+        Assert.assertNull(paymentMethods);
     }
 }

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DataLoader {
@@ -16,7 +17,8 @@ public class DataLoader {
             File file = new File(path);
             objects = mapper.readValue(file, typeReference);
         } catch (IOException e) {
-            throw new RuntimeException("Error while reading file" + e.getMessage());
+            System.out.println("Problem while reading file: " + e.getMessage());
+            return null;
         }
         return objects;
     }
