@@ -25,10 +25,29 @@ public class PromotionServiceTest {
         ));
         PromotionService promotionService = new PromotionService(orders, paymentMethods);
         Map<String, Double> result = promotionService.process();
-        Assert.assertEquals(result, new HashMap<String, Double>(Map.of(
+        Assert.assertEquals(new HashMap<>(Map.of(
                 "mZysk", 165.0,
                 "BosBankrut", 190.0,
                 "PUNKTY", 100.0
-        )));
+        )), result);
+    }
+
+    @Test
+    public void shouldReturnOptimalResult2() {
+        //Situation when is more optimal to have 2x -10% than one "PUNKTY" promotion
+        List<Order> orders = new ArrayList<>(List.of(
+                new Order("ORDER1", 50, null),
+                new Order("ORDER2", 100, null)
+        ));
+        List<PaymentMethod> paymentMethods = new ArrayList<>(List.of(
+                new PaymentMethod("PUNKTY", 15, 50),
+                new PaymentMethod("BosBankrut", 5, 200)
+        ));
+        PromotionService promotionService = new PromotionService(orders, paymentMethods);
+        Map<String, Double> result = promotionService.process();
+        Assert.assertEquals(new HashMap<>(Map.of(
+                "BosBankrut", 100.0,
+                "PUNKTY", 50.0
+        )), result);
     }
 }

@@ -11,12 +11,12 @@ public class DataLoader {
     private final ObjectMapper mapper = new ObjectMapper();
 
     public <T> List<T> loadJson(String path, TypeReference<List<T>> typeReference) {
-        List<T> objects = null;
+        List<T> objects;
         try {
             File file = new File(path);
             objects = mapper.readValue(file, typeReference);
         } catch (IOException e) {
-            System.out.println("Error while reading file" + e.getMessage());
+            throw new RuntimeException("Error while reading file" + e.getMessage());
         }
         return objects;
     }
